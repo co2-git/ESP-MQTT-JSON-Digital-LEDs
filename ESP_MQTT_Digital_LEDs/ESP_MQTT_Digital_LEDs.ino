@@ -269,6 +269,22 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
+  
+  strTopic = String((char*)topic);
+  if(strTopic == "ha/switch1")
+    {
+    switch1 = String((char*)payload);
+    if(switch1 == "ON")
+      {
+        Serial.println("ON");
+        digitalWrite(HeatingPin, HIGH);
+      }
+    else
+      {
+        Serial.println("OFF");
+        digitalWrite(HeatingPin, LOW);
+      }
+    }
 
   char message[length + 1];
   for (int i = 0; i < length; i++) {
